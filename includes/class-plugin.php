@@ -121,6 +121,33 @@ class Dungrok_Plugin {
 		//Admin enqueue script
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
+		add_action( 'init', array( $this, 'handle_form_submit' ) );
+	}
+
+	/**
+	 * Handle form submit
+	 *
+	 * @return void
+	 */
+	public function handle_form_submit() {
+		if ( !is_admin(  ) ) {
+			return;
+		}
+
+		if ( !isset( $_POST['action'] ) || $_POST['action'] !== 'save_debug_ngrok_settings' ) {
+			return;
+		}
+
+		if ( !isset( $_POST['dungrok_nonce'] ) || !wp_verify_nonce( $_POST['dungrok_nonce'], 'dungrok_nonce' ) ) {
+			wp_die( __('Are you cheating?', 'debug-using-ngrok') );
+		}
+
+		if ( !isset( $_POST['ngrok_server_url'] ) ) {
+			return;
+		}
+
+		$url = esc_url_raw( $_POST['ngrok_server_url'] );
+		update_option( 'dungrok_server_url', $url );
 	}
 
 	/**
@@ -129,7 +156,7 @@ class Dungrok_Plugin {
 	 * @return void
 	 */
 	public function register_menu() {
-		add_management_page( __('Debug Using Ngrok'), __('Ngrok debug'), 'manage_options', 'ngrok-debug', array($this, 'render_page') );
+		add_management_page( __('Debug Using Ngrok', 'debug-using-ngrok'), __('Ngrok Debug', 'debug-using-ngrok'), 'manage_options', 'ngrok-debug', array($this, 'render_page') );
 	}
 
 	/**
@@ -138,7 +165,7 @@ class Dungrok_Plugin {
 	 * @return void
 	 */
 	public function render_page() {
-		echo 'i am menu page';
+		require_once __DIR__ . '/partials/page.php';
 	}
 
 	/**
@@ -147,8 +174,7 @@ class Dungrok_Plugin {
 	 * @return void
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'debug-using-ngrok-admin', DUNGROK_ASSETS_URL . 'js/admin.min.js', array( 'jquery' ), null, true );
-		wp_enqueue_style( 'debug-using-ngrok-admin', DUNGROK_ASSETS_URL . 'css/admin.min.css', array(), null );
+		
 	}
 
 }

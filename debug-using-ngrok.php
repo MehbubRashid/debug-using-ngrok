@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Debug Using Ngrok
  * Plugin URI:        https://divdojo.com
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Send debug logs to your ngrok server and view those logs of your code execution that cannot be seen or debugged in the browser.
  * Version:           1.0.0
  * Author:            Mehbub Rashid
  * Author URI:        https://www.facebook.com/disismehbub
@@ -78,6 +78,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin.php';
  */
 function dungrok_run() {
 
+	require_once __DIR__ . '/includes/functions.php';
 	$plugin = new Dungrok_Plugin();
 
 }
