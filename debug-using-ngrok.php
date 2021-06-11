@@ -16,7 +16,7 @@
  * Plugin Name:       Debug Using Ngrok
  * Plugin URI:        https://divdojo.com
  * Description:       Send debug logs to your ngrok server and view those logs of your code execution that cannot be seen or debugged in the browser.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Mehbub Rashid
  * Author URI:        https://www.facebook.com/disismehbub
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'DUNGROK_VERSION', '1.0.0' );
+define( 'DUNGROK_VERSION', '1.0.1' );
 
 /**
  * Define plugin path and plugin url.
